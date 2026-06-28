@@ -27,7 +27,7 @@ function profileView(username) {
     state.isLoggedIn,
     getLogoutContainer(),
     "logout-template",
-    createLogout,
+    createLogout
   );
   document
     .querySelector("[data-form='logout']")
@@ -36,7 +36,7 @@ function profileView(username) {
     state.isLoggedIn,
     getLoginContainer(),
     "login-template",
-    createLogin,
+    createLogin
   );
   document
     .querySelector("[data-action='login']")
@@ -52,13 +52,13 @@ function profileView(username) {
       },
       getProfileContainer(),
       "profile-template",
-      createProfile,
+      createProfile
     );
     renderEach(
       profileData.recent_blooms || [],
       getTimelineContainer(),
       "bloom-template",
-      createBloom,
+      createBloom
     );
   }
 }
