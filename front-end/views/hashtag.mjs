@@ -15,10 +15,19 @@ import {createHeading} from "../components/heading.mjs";
 // Hashtag view: show all tweets containing this tag
 
 function hashtagView(hashtag) {
+  const normalizedHashtag = hashtag.startsWith("#") ? hashtag : `#${hashtag}`;
+
+  if (state.currentHashtag === normalizedHashtag) {
+    renderHashtagPage(normalizedHashtag);
+    return;
+  }
+
   destroy();
+  renderHashtagPage(normalizedHashtag);
+  apiService.getBloomsByHashtag(normalizedHashtag);
+}
 
-  apiService.getBloomsByHashtag(hashtag);
-
+function renderHashtagPage(hashtag) {
   renderOne(
     state.isLoggedIn,
     getLogoutContainer(),
@@ -39,7 +48,7 @@ function hashtagView(hashtag) {
     ?.addEventListener("click", handleLogin);
 
   renderOne(
-    state.currentHashtag,
+    hashtag,
     getHeadingContainer(),
     "heading-template",
     createHeading
