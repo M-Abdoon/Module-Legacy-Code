@@ -1,4 +1,4 @@
-import { renderEach, renderOne, destroy } from "../lib/render.mjs";
+import {renderEach, renderOne, destroy} from "../lib/render.mjs";
 import {
   apiService,
   state,
@@ -7,10 +7,10 @@ import {
   getProfileContainer,
   getTimelineContainer,
 } from "../index.mjs";
-import { createLogin, handleLogin } from "../components/login.mjs";
-import { createLogout, handleLogout } from "../components/logout.mjs";
-import { createProfile, handleFollow } from "../components/profile.mjs";
-import { createBloom } from "../components/bloom.mjs";
+import {createLogin, handleLogin} from "../components/login.mjs";
+import {createLogout, handleLogout} from "../components/logout.mjs";
+import {createProfile, handleFollow} from "../components/profile.mjs";
+import {createBloom} from "../components/bloom.mjs";
 
 // Profile view - just this person's blooms and their profile
 function profileView(username) {
@@ -63,4 +63,4 @@ function profileView(username) {
   }
 }
 
-export { profileView };
+export {profileView};
