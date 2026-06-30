@@ -40,6 +40,18 @@ async function init() {
 
   handleRouteChange();
 
+  const timelineContainer = getTimelineContainer();
+  timelineContainer?.addEventListener("click", async (event) => {
+    const rebloomButton = event.target.closest("[data-action='rebloom']");
+    if (!rebloomButton) return;
+
+    const bloomArticle = rebloomButton.closest("[data-bloom]");
+    const bloomId = bloomArticle?.getAttribute("data-bloom-id");
+    if (!bloomId) return;
+
+    await apiService.rebloom(bloomId);
+  });
+
   document.addEventListener("state-change", () => {
     handleRouteChange();
   });

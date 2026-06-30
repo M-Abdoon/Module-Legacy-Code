@@ -19,6 +19,9 @@ const createBloom = (template, bloom) => {
   const bloomUsername = bloomFrag.querySelector("[data-username]");
   const bloomTime = bloomFrag.querySelector("[data-time]");
   const bloomTimeLink = bloomFrag.querySelector("a:has(> [data-time])");
+  const rebloomInfo = bloomFrag.querySelector("[data-rebloom-info]");
+  const rebloomCount = bloomFrag.querySelector("[data-rebloom-count]");
+  const rebloomButton = bloomFrag.querySelector("[data-action='rebloom']");
   const bloomContent = bloomFrag.querySelector("[data-content]");
 
   bloomArticle.setAttribute("data-bloom-id", bloom.id);
@@ -30,6 +33,26 @@ const createBloom = (template, bloom) => {
     ...bloomParser.parseFromString(_formatHashtags(bloom.content), "text/html")
       .body.childNodes
   );
+
+  if (bloom.original_sender) {
+    rebloomInfo.hidden = false;
+    const originalTime = bloom.original_sent_timestamp
+      ? ` • ${_formatTimestamp(bloom.original_sent_timestamp)}`
+      : "";
+    rebloomInfo.innerHTML = `Rebloomed from <a href="/profile/${bloom.original_sender}">@${bloom.original_sender}</a>${originalTime}`;
+  }
+
+  if (bloom.rebloom_count && bloom.rebloom_count > 0) {
+    rebloomCount.hidden = false;
+    rebloomCount.textContent =
+      bloom.rebloom_count === 1
+        ? "1 rebloom"
+        : `${bloom.rebloom_count} reblooms`;
+  }
+
+  if (rebloomButton) {
+    rebloomButton.dataset.bloomId = bloom.id;
+  }
 
   return bloomFrag;
 };
