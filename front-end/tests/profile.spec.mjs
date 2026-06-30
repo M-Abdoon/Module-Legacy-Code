@@ -43,4 +43,19 @@ test.describe("Profile View", () => {
     // And bloom form is not attached
     await expect(page.locator("#bloom-form-container form")).not.toBeAttached();
   });
+
+  test("allows a user to unfollow a profile after following it", async ({page}) => {
+    await loginAsJustSomeGuy(page);
+    await page.goto("/#/profile/sample");
+
+    const followButton = page.locator("#profile-container [data-action='follow']");
+    await expect(followButton).toBeVisible();
+    await expect(followButton).toHaveText("Follow");
+
+    await followButton.click();
+    await expect(followButton).toHaveText("Unfollow");
+
+    await followButton.click();
+    await expect(followButton).toHaveText("Follow");
+  });
 });
